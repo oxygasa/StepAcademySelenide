@@ -16,10 +16,9 @@ public class HomePageTest extends BaseTest {
     @Step("1. Type positive login credentials. 2. Type positive password credentials. 3. Click the 'Login' button. 4. Add new comment on a home page.")
     @Severity(SeverityLevel.CRITICAL)
     public void addNewCommentTest() {
-        homePage = new HomePage();
-        homePage.find(HomePage.ADD_BUTTON).click();
+        HomePage.ADD_BUTTON.click();
         String testText = UUID.randomUUID().toString();
-        homePage.find(HomePage.EDITABLE_AREA).sendKeys(testText);
-        homePage.find(HomePage.HOME_BUTTON).click();
+        HomePage.EDITABLE_AREA.sendKeys(testText);
+        HomePage.HOME_BUTTON.click();
     }
 }

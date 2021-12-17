@@ -2,14 +2,16 @@ package commons;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
 import java.io.File;
-import java.util.Date;
 import java.io.IOException;
 import static commons.Config.*;
-import static com.codeborne.selenide.Selenide.screenshot;
 public class CommonActions {
     /** All changes must be provided only in src/main/java/commons/Config*/
     static {
@@ -17,20 +19,15 @@ public class CommonActions {
         Configuration.browser = BROWSER_NAME;
     }
 
-    public void doScreenshotDirectoryChanging() {
-        if (CHANGE_SCREENSHOT_DIRECTORY)
-            Configuration.reportsFolder = SCREENSHOTS_FOLDER;
+    @BeforeSuite
+    static void setupAllureReports() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide()
+                .screenshots(MAKE_SCREENSHOTS_FOR_ALLURE)
+                .savePageSource(MAKE_ALLURE_REPORTS)
+        );
     }
 
-    public void makeScreenshotAlwaysTrigger() {
-        if (MAKE_SCREENSHOTS_ALWAYS) {
-            Date date = new Date();
-            String pngFileName = screenshot("test_screenshot");
-            String currentTime = String.valueOf(date.getTime());
-            File screenshotAsBase64 = Selenide.screenshot(OutputType.FILE);
-        }
-    }
-
+    @BeforeTest
     public void clearAllReportsTrigger() throws IOException {
         File allureResultFolder = new File(".allure-results");
         File SelenideReportFolder = new File(".build/reports");
@@ -39,7 +36,7 @@ public class CommonActions {
             FileUtils.deleteDirectory(new File(String.valueOf(SelenideReportFolder)));
         }
     }
-
+    @AfterSuite
     public void clearCookiesTrigger() {
         if (CLEAR_COOKIES) {
             try {

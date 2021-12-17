@@ -1,9 +1,13 @@
 package tests.login.positive;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
+import pages.home.HomePage;
 import pages.login.LoginPage;
 import tests.base.BaseTest;
+
+import static com.codeborne.selenide.Selenide.*;
 import static pages.login.LoginPage.*;
 
 
@@ -17,10 +21,18 @@ public class LoginPageTest extends BaseTest {
     @Step("1. Type positive login credentials. 2. Type positive password credentials. 3. Click the 'Login' button")
     @Severity(SeverityLevel.CRITICAL)
 
-    public void checkIsLoginIsSuccessful() {
-        LoginPage loginPage = new LoginPage();
-        loginPage.goToUrl(LOGIN_PAGE_URL);
-        loginPage.typeLoginPasswordAndSubmit(loginPage.getLogin(), loginPage.getPassword());
+    public void checkIsLoginIsSuccessful() throws InterruptedException {
+        open(LoginPage.LOGIN_PAGE_URL);
+        LoginPage.LOGIN_INPUT.setValue(LOGIN_VALUE);
+        LoginPage.PASSWORD_INPUT.setValue(PASSWORD_VALUE);
+        LoginPage.LOGIN_BUTTON.click();
+        if (!HomePage.ADD_BUTTON.equals(HomePage.ADD_BUTTON.shouldBe(Condition.visible))) {
+            LoginPage.LOGIN_BUTTON.wait(5000);
+            LoginPage.FEED_THE_MONKKEE_CANCEL_BUTTON.click();
+        } else {
+            HomePage.ADD_BUTTON.shouldBe(Condition.visible);
+        }
     }
 }
+
 

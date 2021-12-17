@@ -9,23 +9,22 @@ public class Config {
      * edge
      * opera
      **/
-    public static final String BROWSER_NAME = "chrome";
+    public static final String BROWSER_NAME = "firefox";
     /** Clear all cookies and cache after each interation.*/
     public static final Boolean CLEAR_COOKIES = false;
     /** To keep browser open after all tests.*/
-    public static final Boolean HOLD_BROWSER_OPEN = false;
+    public static final Boolean HOLD_BROWSER_OPEN = true;
     /**
      * Selenide makes screenshots automatically after tests fail.
      * Screenshots of the failed tests are located ./build/reports by default
      * Screenshots path can be changed here.
      **/
-    public static final Boolean MAKE_SCREENSHOTS_ALWAYS = true;
-    public static final Boolean CHANGE_SCREENSHOT_DIRECTORY = false;
-    public static final String SCREENSHOTS_FOLDER = "./Dimitri/screenshots";
-
+    public static final Boolean MAKE_ALLURE_REPORTS = true;
+    public static final Boolean MAKE_SCREENSHOTS_FOR_ALLURE = false;
     /**
      * Before each run the reports and screenshots can stay deleted.
      * ".build/reports" and .DimitriQA/../allure-results
      **/
     public static final Boolean CLEAR_TEST_REPORT_AND_SCREENSHOT_DIRECTORY = false;
+
 }

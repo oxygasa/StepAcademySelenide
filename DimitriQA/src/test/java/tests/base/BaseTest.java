@@ -1,34 +1,21 @@
 package tests.base;
-import commons.CommonActions;
-import org.testng.annotations.*;
+
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 import pages.base.BasePage;
-import java.io.IOException;
 
 public class BaseTest extends BasePage {
-    /***
-     * Here is presented a logic of src/main/java/commons/config triggers.
-     * Use src/main/java/commons/config triggers for behaviour changing.
+    /**
+     * Here is a class for general actions which are applicable for every page.
      **/
 
-    CommonActions commonActions = new CommonActions();
 
-    @BeforeTest
-    public void clearAllReportsBeforeStartEachTest() throws IOException {
-        commonActions.clearAllReportsTrigger();
-    }
-
-    @AfterSuite
-    public void clearCookiesAndLocalStorageAterSuite() {
-        commonActions.clearCookiesTrigger();
-    }
-
-    @BeforeTest
-    public void changeScreenshotDirectory() {
-        commonActions.doScreenshotDirectoryChanging();
-    }
-
-    @AfterTest
-    public void makeScreenshotAfterEachTest(){
-        commonActions.makeScreenshotAlwaysTrigger();
+    /**
+     * The method clears a text field before typing.
+     * The method fills a text field via typed text.
+     **/
+    public void clearAndType(SelenideElement element, String value) {
+        while (!element.getAttribute("value").equals("")) element.sendKeys(Keys.BACK_SPACE);
+        element.sendKeys((value));
     }
 }
