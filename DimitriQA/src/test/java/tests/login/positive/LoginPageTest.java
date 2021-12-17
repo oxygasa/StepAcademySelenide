@@ -4,7 +4,6 @@ import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import pages.login.LoginPage;
 import tests.base.BaseTest;
-import static constants.Constant.Urls.LOGIN_PAGE_URL;
 import static pages.login.LoginPage.*;
 
 
@@ -19,10 +18,9 @@ public class LoginPageTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
 
     public void checkIsLoginIsSuccessful() {
-        LoginPage loginPage = new LoginPage(getDriver());
+        LoginPage loginPage = new LoginPage();
         loginPage.goToUrl(LOGIN_PAGE_URL);
-        loginPage.find(loginInput).sendKeys(loginPage.getLogin());
-        loginPage.find(passwordInput).sendKeys(loginPage.getPassword());
-        loginPage.find(loginButton).click();
+        loginPage.typeLoginPasswordAndSubmit(loginPage.getLogin(), loginPage.getPassword());
     }
 }
+

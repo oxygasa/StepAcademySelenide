@@ -1,4 +1,5 @@
 .idea/
+build/
 allure-results/
 target/
 DimitriQA/build/

@@ -1,43 +1,27 @@
 package pages.base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.codeborne.selenide.SelenideElement;
+import org.openqa.selenium.Keys;
 
-import static constants.Constant.TimeoutVariables.EXPLICIT_WAIT;
+import static com.codeborne.selenide.Selenide.*;
 
 public class BasePage {
 
-    public WebDriver driver;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public BasePage() {
-    }
-
-    /**
-     * The method to navigate to specific url address.
-     **/
+    /*** The method to navigate to specific url address. **/
     public void goToUrl(String url) {
-        driver.get(url);
+        open(url);
+    }
+    public SelenideElement find(SelenideElement element){
+        return element;
     }
 
     /**
-     * The method to find element By locator.
+     * The method clears a text field before typing.
+     * The method fills a text field via typed text.
      **/
-    public WebElement find(By locator){
-        return driver.findElement(locator);
-    }
-
-    /**
-     * Wait for visibility element in DOM model.
-     **/
-    public void waitElement(By locator){
-        WebDriverWait wait = new WebDriverWait(driver, EXPLICIT_WAIT);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    public void clearAndType(SelenideElement element, String value){
+        while (!element.getAttribute("value").equals("")) element.sendKeys(Keys.BACK_SPACE);
+        element.sendKeys((value));
     }
 }

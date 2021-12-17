@@ -1,28 +1,45 @@
 package pages.login;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+
+import static com.codeborne.selenide.Selenide.*;
+import com.codeborne.selenide.SelenideElement;
 import pages.base.BasePage;
 
 public class LoginPage extends BasePage {
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
+    /** List of locators.*/
+    public static final String LOGIN_PAGE_URL = "https://my.monkkee.com/";
+    public static final SelenideElement LOGIN_INPUT = $x(".//input[@id='login']");
+    public static final SelenideElement PASSWORD_INPUT = $x(".//input[@id='password']");
+    public static final SelenideElement LOGIN_BUTTON = $x(".//button[@type='submit']");
+
+    /** Change a login and password if you need another credentials.*/
+    private String login = "6317985@mail.ru";
+    private String password = "123456qwerty";
+
+
+    /**
+     * The method clears a text field before typing.
+     * The method fills login and password fields.
+     **/
+    public void  typeLoginPasswordAndSubmit (String login, String password){
+        clearAndType(LOGIN_INPUT,login);
+        clearAndType(PASSWORD_INPUT,password);
+        PASSWORD_INPUT.pressEnter();
     }
 
-    public String login = "6317985@mail.ru";
-    public String password = "123456qwerty";
-    public static final By loginInput = By.xpath(".//input[@id='login']");
-    public static final By passwordInput = By.xpath(".//input[@id='password']");
-    public static final By loginButton = By.xpath(".//button[@type='submit']");
-
-    public String getLogin(){
+    public String getLogin() {
         return login;
     }
-    public String getPassword(){
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
-
-
-
-
+}
