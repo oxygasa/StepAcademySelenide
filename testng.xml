@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Tests Suite">
+    <test preserve-order="true"
+          name=".DimitriQA/src/test/java/tests/home/positive/HomePageTest.java">
+        <classes>
+            <class name="tests.home.positive.HomePageTest"/>
+        </classes>
+    </test>
+    <test preserve-order="true"
+          name=".DimitriQA/src/test/java/tests/login/positive/LoginPageTest.java">
+        <classes>
+            <class name="tests.login.positive.LoginPageTest"/>
+        </classes>
+    </test>
+</suite>
